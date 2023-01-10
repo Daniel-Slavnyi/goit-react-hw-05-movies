@@ -1,26 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { fetchMovieById } from 'services/fetchMovie';
 
 export default function MovieDetails() {
   const [film, setFilm] = useState({});
   const { id } = useParams();
+  const prevLocation = useLocation();
+  const location = useRef(prevLocation);
 
   useEffect(() => {
     fetchMovieById(id).then(data => setFilm(data));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log('film =>', film);
 
   return (
     <div>
-      <Link to={'/movies'}>Go back</Link>
+      <Link to={location.current.state?.from}>Go back</Link>
       <img
         src={
-          film.poster_path &&
+          film?.poster_path &&
           `https://image.tmdb.org/t/p/w500${film.poster_path}`
         }
-        alt={film.original_title}
+        alt={film?.original_title}
       />
       <div>
         <h2>

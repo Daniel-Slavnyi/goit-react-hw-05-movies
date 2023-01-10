@@ -6,7 +6,6 @@ import defualtImage from './dfi.jpg';
 export default function Cast() {
   const [cast, setCast] = useState([]);
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     fetchMovieForCredits(id).then(data => setCast(data.cast));
