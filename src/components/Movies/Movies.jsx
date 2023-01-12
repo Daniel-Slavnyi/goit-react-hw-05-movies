@@ -3,6 +3,15 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { fetchMovieByQery } from 'services/fetchMovie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {
+  ButtonlEl,
+  FormEl,
+  InputEl,
+  LabelEl,
+  LiEl,
+  UlEl,
+} from './Movies.styled';
+import defualtImage from '../Cast/dfi.jpg';
 
 const useFirstRender = () => {
   const isFirstRender = useRef(true);
@@ -21,7 +30,7 @@ export default function Movies() {
   const [qeryMovie, setQeryMovie] = useState([]);
   const [isFirstRender, setIsFirstRender] = useFirstRender();
 
-  console.log('qery =>', inputValue);
+  console.log('qeryMovie =>', qeryMovie);
   const location = useLocation();
 
   useEffect(() => {
@@ -57,25 +66,34 @@ export default function Movies() {
   return (
     <>
       <ToastContainer />
-      <form onSubmit={onSubmit}>
-        <label htmlFor="">
-          <input
+      <FormEl onSubmit={onSubmit}>
+        <LabelEl>
+          <InputEl
             type="text"
             value={inputValue}
             onChange={e => setInputValue(e.target.value)}
+            placeholder=" "
           />
-        </label>
-        <button type="submit">Seacrh</button>
-      </form>
-      <ul>
+          <span>Movie</span>
+        </LabelEl>
+        <ButtonlEl type="submit">Seacrh</ButtonlEl>
+      </FormEl>
+      <UlEl>
         {qeryMovie.map(item => (
-          <li key={item.id}>
+          <LiEl key={item.id}>
             <Link to={`${item.id}`} state={{ from: location }}>
-              {item.title}
+              <img
+                src={
+                  item.poster_path
+                    ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+                    : defualtImage
+                }
+                alt=""
+              />
             </Link>
-          </li>
+          </LiEl>
         ))}
-      </ul>
+      </UlEl>
     </>
   );
 }

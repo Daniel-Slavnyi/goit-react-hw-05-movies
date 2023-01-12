@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { Header, UlList, NavList, NavItem } from './AppBar.styled';
+import { ReactComponent as Home } from './home.svg';
+import { ReactComponent as Movie } from './movie.svg';
 
 export default function AppBar() {
   return (
@@ -8,10 +9,14 @@ export default function AppBar() {
       <NavList>
         <UlList>
           <li>
-            <NavItem to="/">Home</NavItem>
+            <NavItem to="/">
+              <Home /> <span>Home</span>
+            </NavItem>
           </li>
           <li>
-            <NavItem to="movies">Movies</NavItem>
+            <NavItem to="movies">
+              <Movie /> <span>Movies</span>
+            </NavItem>
           </li>
         </UlList>
       </NavList>

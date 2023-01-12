@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLocation,
-  useParams,
-} from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchMovieById } from 'services/fetchMovie';
+import {
+  ImgEl,
+  LinkEl,
+  NavLinkEl,
+  TextInfoEl,
+  WrapEl,
+  WrapInfoEl,
+  WrapNavLinkEl,
+} from './MovieDetails.styled';
 
 export default function MovieDetails() {
   const [film, setFilm] = useState({});
@@ -20,32 +23,39 @@ export default function MovieDetails() {
   }, []);
 
   return (
-    <div>
-      <Link to={location.current.state?.from}>Go back</Link>
-      <img
-        src={
-          film?.poster_path &&
-          `https://image.tmdb.org/t/p/w500${film.poster_path}`
-        }
-        alt={film?.original_title}
-      />
-      <div>
-        <h2>
-          {film.original_title} {film.release_date}
-        </h2>
-        <p>Score</p>
-        <p>{Math.ceil((film.vote_average * 100) / 10)} %</p>
-        <p>Overwiew</p>
-        <p>{film.overview}</p>
-        <p>Genres</p>
-        {film.genres &&
-          film.genres.map(item => <p key={item.id}>{item.name}</p>)}
-      </div>
-      <div>
-        <NavLink to="cast">cast </NavLink>
-        <NavLink to="reviews">reviews </NavLink>
-      </div>
-      <Outlet />
-    </div>
+    <WrapEl>
+      <LinkEl to={location.current.state?.from}>Go back</LinkEl>
+      <WrapInfoEl>
+        <ImgEl
+          src={
+            film?.poster_path &&
+            `https://image.tmdb.org/t/p/w500${film.poster_path}`
+          }
+          alt={film?.original_title}
+        />
+        <div>
+          <h2>
+            {film.original_title} {film.release_date}
+          </h2>
+          <TextInfoEl>
+            Score <span>{Math.ceil((film.vote_average * 100) / 10)} %</span>
+          </TextInfoEl>
+          <TextInfoEl>
+            Overwiew <span>{film.overview}</span>
+          </TextInfoEl>
+          <TextInfoEl>
+            Genres
+            {film.genres &&
+              film.genres.map(item => <span key={item.id}>{item.name}</span>)}
+          </TextInfoEl>
+
+          <WrapNavLinkEl>
+            <NavLinkEl to="cast">cast </NavLinkEl>
+            <NavLinkEl to="reviews">reviews </NavLinkEl>
+            <Outlet />
+          </WrapNavLinkEl>
+        </div>
+      </WrapInfoEl>
+    </WrapEl>
   );
 }
