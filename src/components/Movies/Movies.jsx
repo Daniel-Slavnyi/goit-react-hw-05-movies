@@ -1,35 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { fetchMovieByQery } from 'services/fetchMovie';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Movies() {
-  const [inputValue, setInputValue] = useState('');
-  const [qeryMovie, setQeryMovie] = useState([]);
+const useFirstRender = () => {
+  const isFirstRender = useRef(true);
 
+  const togleRender = () => {
+    isFirstRender.current = false;
+  };
+
+  return [isFirstRender.current, togleRender];
+};
+
+export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
   const query = searchParams.get('query');
-  console.log(query);
+  const [inputValue, setInputValue] = useState(query ?? '');
+  const [qeryMovie, setQeryMovie] = useState([]);
+  const [isFirstRender, setIsFirstRender] = useFirstRender();
+
+  console.log('qery =>', inputValue);
+  const location = useLocation();
 
   useEffect(() => {
-    if (!query) {
+    if (isFirstRender && !inputValue) {
+      setIsFirstRender();
       return;
     }
-
+    console.log(isFirstRender);
     fetchMovieByQery(query).then(data => setQeryMovie(data.results));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   useEffect(() => {
-    if (qeryMovie.length === 0 && !inputValue) {
-      return;
-    }
-
-    if (qeryMovie.length === 0 && inputValue) {
+    if (qeryMovie.length === 0 && inputValue && !isFirstRender) {
       toast('There is nothing to movies, please choose another value');
-      setInputValue('');
+      // setInputValue('');
       return;
     }
 

@@ -1,12 +1,15 @@
 import AppBar from 'components/AppBar/AppBar';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import { Wrapper } from './Layout.styled';
 
 export default function Layout() {
   return (
-    <div>
+    <Wrapper>
       <AppBar />
-      <Outlet />
-    </div>
+      <Suspense fallback={false}>
+        <Outlet />
+      </Suspense>
+    </Wrapper>
   );
 }

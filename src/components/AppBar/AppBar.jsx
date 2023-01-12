@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { UlList, NavList, NavItem } from './AppBar.styled';
+import { Header, UlList, NavList, NavItem } from './AppBar.styled';
 
 export default function AppBar() {
   return (
-    <header>
+    <Header>
       <NavList>
         <UlList>
           <li>
@@ -15,6 +15,6 @@ export default function AppBar() {
           </li>
         </UlList>
       </NavList>
-    </header>
+    </Header>
   );
 }

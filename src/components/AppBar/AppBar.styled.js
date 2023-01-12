@@ -1,14 +1,21 @@
 import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
 
+export const Header = styled.header``;
+
 export const NavList = styled.nav`
   border: 2px solid tomato;
+  height: 100%;
 `;
 
 export const UlList = styled.ul`
-  list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 40px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
 `;
 
 export const NavItem = styled(NavLink)`
