@@ -9,6 +9,7 @@ import {
   InputEl,
   LabelEl,
   LiEl,
+  SpanEl,
   UlEl,
 } from './Movies.styled';
 import defualtImage from '../Cast/dfi.jpg';
@@ -74,7 +75,7 @@ export default function Movies() {
             onChange={e => setInputValue(e.target.value)}
             placeholder=" "
           />
-          <span>Movie</span>
+          <SpanEl>Movie</SpanEl>
         </LabelEl>
         <ButtonlEl type="submit">Seacrh</ButtonlEl>
       </FormEl>

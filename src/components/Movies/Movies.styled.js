@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from '@emotion/styled/macro';
 
 export const FormEl = styled.form`
   display: flex;
@@ -8,6 +8,9 @@ export const FormEl = styled.form`
 export const LabelEl = styled.label`
   position: relative;
   display: flex;
+`;
+export const SpanEl = styled.span`
+  color: white;
 `;
 
 export const InputEl = styled.input`
@@ -19,19 +22,18 @@ export const InputEl = styled.input`
   color: white;
   margin-right: 10px;
 
-  & + span {
+  & + ${SpanEl} {
     position: absolute;
     top: 10px;
     left: 0;
-    color: white;
     transition: all 0.5s ease;
   }
 
-  &:focus-within + span {
+  &:focus-within + ${SpanEl} {
     transform: translateX(-140%);
     color: tomato;
   }
-  &:not(:placeholder-shown) + span {
+  &:not(:placeholder-shown) + ${SpanEl} {
     transform: translateX(-140%);
     color: tomato;
   }

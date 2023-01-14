@@ -8,7 +8,7 @@ import { ItemOfImg, UlList, Title, LinkOfImg } from './Home.styled';
 export default function Home() {
   const [movies, setMovies] = useState([]);
   const location = useLocation();
-
+  console.log(movies);
   useEffect(() => {
     fetchMovieByTranding().then(data => setMovies(data.results));
   }, []);
